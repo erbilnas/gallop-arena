@@ -63,7 +63,7 @@ export const useRaceModule = () => {
       if (horsePositions.value[horse.id] >= finishLine) return
 
       // Calculate speed based on horse condition (1-100)
-      const baseSpeed = horse.condition / RACE_CONFIG.MAX_CONDITION
+      const baseSpeed = (horse.condition / RACE_CONFIG.MAX_CONDITION) * 10
       const randomFactor = 0.8 + Math.random() * 0.4
       const speed = baseSpeed * randomFactor
       const newPosition = Math.min(horsePositions.value[horse.id] + speed, finishLine)
