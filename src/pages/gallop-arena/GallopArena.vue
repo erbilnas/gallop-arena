@@ -25,7 +25,9 @@
     </div>
 
     <footer class="footer">
-      <p class="footer__text">© {{ new Date().getFullYear() }} Erbil Nas. All rights reserved.</p>
+      <p class="footer__text">
+        © {{ new Date().getFullYear() }} Erbil Nas. All rights reserved. Version: {{ version }}
+      </p>
     </footer>
 
     <ResultsModal
@@ -42,7 +44,7 @@
 
 <script setup lang="ts">
 import '@/assets/design-system/animations.css'
-import { useSound } from '@/composables/useSound'
+import { useSound, useVersion } from '@/composables'
 import { useRaceStore } from '@/stores/raceStore'
 import { storeToRefs } from 'pinia'
 import { computed, ref, watch } from 'vue'
@@ -56,6 +58,7 @@ import ResultsSideMenu from './views/results/ResultsSideMenu.vue'
 
 // Store
 const store = useRaceStore()
+const { version } = useVersion()
 const {
   horses,
   currentRace,

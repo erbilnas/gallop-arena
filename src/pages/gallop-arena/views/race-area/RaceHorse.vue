@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { useSound } from '@/composables/useSound'
+import { useSound } from '@/composables'
 import { computed } from 'vue'
 
 interface Props {

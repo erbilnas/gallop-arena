@@ -22,7 +22,7 @@
       </BaseButton>
 
       <BaseButton @click="startRace" :disabled="isStartRaceDisabled" icon="🏁" primary size="small">
-        Start Race
+        {{ isLastRound ? 'Finish Race' : 'Start Race' }}
       </BaseButton>
 
       <BaseButton

@@ -86,7 +86,7 @@ const closeMenu = () => {
   right: -400px;
   top: 0;
   bottom: 0;
-  width: 400px;
+  width: 42rem;
   background: rgba(30, 30, 30, 0.95);
   box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
   transition: right 0.3s ease-out;
