@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import HorseRaceGame from './components/HorseRaceGame.vue'
+import GallopArena from '@/pages/gallop-arena'
 </script>
 
 <template>
-  <div class="app">
-    <main>
-      <HorseRaceGame />
-    </main>
-  </div>
+  <main>
+    <GallopArena />
+  </main>
 </template>
 
 <style></style>
