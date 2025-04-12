@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isOpen" class="modal-overlay" @click="closeModal">
+  <div class="modal-overlay" @click="closeModal">
     <div class="modal-content" @click.stop>
       <div class="modal-header">
         <h2>{{ title }}</h2>
@@ -14,11 +14,11 @@
 
 <script setup lang="ts">
 interface Props {
-  isOpen: boolean
   title: string
 }
 
-const props = defineProps<Props>()
+defineProps<Props>()
+
 const emit = defineEmits(['close'])
 
 const closeModal = () => {

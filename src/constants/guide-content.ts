@@ -64,8 +64,4 @@ export const GUIDE_CONTENT = {
       },
     ],
   },
-
-  scrollIndicator: {
-    text: 'Scroll for more details',
-  },
 } as const

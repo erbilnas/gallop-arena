@@ -16,9 +16,17 @@
   --color-text: #ffffff;
   --color-text-secondary: #b0b0b0;
   --color-border: #2d2d2d;
+
+  /* Status Colors */
   --color-error: #b11616;
+  --color-error-dark: #8a1111;
+  --color-error-light: #d41f1f;
   --color-success: #4caf50;
+  --color-success-light: #66bb6a;
+  --color-success-lighter: #81c784;
   --color-warning: #ffc107;
+  --color-warning-light: #ffca28;
+  --color-warning-dark: #ffa000;
   --color-info: #2196f3;
 
   /* Typography */
