@@ -4,6 +4,8 @@ import type { RaceSchedule } from '../../types/horse'
 
 export const useResultsModule = (raceSchedule: Ref<RaceSchedule>) => {
   const scheduleRef = ref(raceSchedule.value)
+  const showResultsMenu = ref(false)
+  const showResultsModal = ref(false)
 
   // Update the schedule reference when the input changes
   watch(
@@ -67,5 +69,7 @@ export const useResultsModule = (raceSchedule: Ref<RaceSchedule>) => {
 
   return {
     totalResults,
+    showResultsMenu,
+    showResultsModal,
   }
 }

@@ -1,19 +1,16 @@
 import { RACE_CONFIG } from '@/constants'
 import { defineStore } from 'pinia'
-import { useHorseModule } from './modules/horseModule'
-import { useRaceModule } from './modules/raceModule'
-import { useResultsModule } from './modules/resultsModule'
+import { computed } from 'vue'
+import { useHorseModule, useRaceModule, useResultsModule } from './modules'
 
-export const useRaceStore = defineStore('race', () => {
+export const useStore = defineStore('store', () => {
   // Initialize modules
   const horseModule = useHorseModule()
   const raceModule = useRaceModule()
   const resultsModule = useResultsModule(raceModule.raceSchedule)
 
-  // Horse module exports
   const { horses, generateHorses, getRandomHorses, updateHorseConditions } = horseModule
 
-  // Race module exports
   const {
     raceSchedule,
     horsePositions,
@@ -27,8 +24,7 @@ export const useRaceStore = defineStore('race', () => {
     nextRound: baseNextRound,
   } = raceModule
 
-  // Results module exports
-  const { totalResults } = resultsModule
+  const { totalResults, showResultsMenu, showResultsModal } = resultsModule
 
   // Enhanced functions that combine module functionality
   const generateRaceSchedule = () => {
@@ -63,7 +59,12 @@ export const useRaceStore = defineStore('race', () => {
     isRaceInProgress,
     isLastRound,
     totalResults,
-
+    showResultsMenu,
+    showResultsModal,
+    // Getters
+    isResultsModalVisible: computed<boolean>(
+      () => isLastRound.value && totalResults.value.length > 0 && isRoundComplete.value,
+    ),
     // Actions
     generateHorses,
     generateRaceSchedule,
