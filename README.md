@@ -1,61 +1,133 @@
-# gallop-arena
+# Gallop Arena - Interactive Horse Racing Game
 
-This template should help get you started developing with Vue 3 in Vite.
+Gallop Arena is an interactive horse racing game built with Vue 3, TypeScript, and Pinia. The game features dynamic horse racing simulations with animated horse movements and comprehensive race scheduling.
 
-## Recommended IDE Setup
+## 🎮 Game Features
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- **Dynamic Horse Generation**: Randomly generates 1-20 unique horses with distinct colors and condition scores
+- **Race Scheduling**: Creates a 6-round race schedule with varying track lengths
+- **Interactive Racing**: Real-time animated horse movements during races
+- **Results Tracking**: Detailed race results displayed after each round
+- **Modern UI**: Clean and responsive user interface
 
-## Type Support for `.vue` Imports in TS
+## 🏁 Race Specifications
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+The game includes 6 rounds with the following track lengths:
 
-## Customize configuration
+- Round 1: 1200 meters
+- Round 2: 1400 meters
+- Round 3: 1600 meters
+- Round 4: 1800 meters
+- Round 5: 2000 meters
+- Round 6: 2200 meters
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+Each round features 10 randomly selected horses from the available pool of 20 horses.
 
-## Project Setup
+## 🛠️ Technical Stack
 
-```sh
+- **Frontend Framework**: Vue 3
+- **Language**: TypeScript
+- **State Management**: Pinia
+- **Build Tool**: Vite
+- **Testing**: Vitest (Unit Tests) + Cypress (E2E Tests)
+- **Linting**: ESLint + Prettier
+- **Package Manager**: Bun
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (LTS version recommended)
+- Bun package manager
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/your-username/gallop-arena.git
+cd gallop-arena
+```
+
+2. Install dependencies:
+
+```bash
 bun install
 ```
 
-### Compile and Hot-Reload for Development
+### Development
 
-```sh
+Start the development server:
+
+```bash
 bun dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### Building for Production
 
-```sh
+```bash
 bun run build
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+## 🧪 Testing
 
-```sh
+### Unit Tests
+
+```bash
 bun test:unit
 ```
 
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
+### End-to-End Tests
 
-```sh
+```bash
+# Development mode
 bun test:e2e:dev
-```
 
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
-bun run build
+# Production mode
 bun test:e2e
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+## 📋 Code Quality
 
-```sh
+### Linting
+
+```bash
 bun lint
 ```
+
+### Type Checking
+
+```bash
+bun run type-check
+```
+
+## 🏗️ Project Structure
+
+```
+gallop-arena/
+├── src/              # Source files
+├── cypress/          # E2E tests
+├── public/           # Static assets
+├── tests/            # Unit tests
+└── vite.config.ts    # Vite configuration
+```
+
+## 📝 Code Style
+
+- Follows SOLID principles
+- Uses TypeScript (no `any` type)
+- Implements BEM methodology for CSS
+- Clean code practices
+- Comprehensive unit and end-to-end tests
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 👥 Authors
+
+- Erbil Nas
