@@ -1,5 +1,24 @@
-@import './base.css';
+@import './design-system/index.css';
 
-#app {
-  margin: 0 auto;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: var(--font-weight-regular);
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color-text);
+  background: var(--color-background);
+  transition:
+    color 0.5s,
+    background-color 0.5s;
+  line-height: 1.6;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
