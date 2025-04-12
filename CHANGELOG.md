@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/erbilnas/gallop-arena/compare/v1.0.0...v1.1.0) (2025-04-12)
+
+
+### Bug Fixes
+
+* change name of app ([3b0158d](https://github.com/erbilnas/gallop-arena/commit/3b0158d3f5b83e5513400821dbfc5d2796ec9650))
+
 # 1.0.0 (2025-04-12)
 
 ### Bug Fixes
