@@ -44,9 +44,9 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue'
-import { useRaceStore } from '../stores/raceStore'
+import { useRaceStore } from '@/stores/raceStore'
 import { storeToRefs } from 'pinia'
+import { defineEmits, defineProps } from 'vue'
 
 const store = useRaceStore()
 const { raceSchedule, totalResults } = storeToRefs(store)

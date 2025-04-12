@@ -15,37 +15,28 @@
       <span class="title-icon">🐴</span>
       Available Horses ({{ horses.length }})
     </h3>
+
     <div class="horse-grid">
-      <div
-        v-for="horse in horses"
+      <HorseCard
+        v-for="horse in sortedHorses"
         :key="horse.id"
-        class="horse-item"
-        :style="{ '--delay': `${horse.id * 0.05}s` }"
-      >
-        <div class="horse-header">
-          <div class="horse-color" :style="{ backgroundColor: horse.color }"></div>
-          <div class="horse-name">{{ horse.name }}</div>
-        </div>
-        <div class="horse-condition">
-          <div class="condition-label">Condition</div>
-          <div class="condition-bar">
-            <div
-              class="condition-fill"
-              :style="{
-                width: `${horse.condition}%`,
-                background: getConditionColor(horse.condition),
-              }"
-            ></div>
-            <span class="condition-value">{{ horse.condition }}</span>
-          </div>
-        </div>
+        :horse="horse"
+        :is-selected="isHorseSelected(horse.id)"
+      />
+
+      <div class="scroll-hint">
+        <span class="scroll-icon">🖱️</span>
+        Scroll or drag to see all horses
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref } from 'vue'
+import HorseCard from '@/components/HorseCard.vue'
+import { useRaceStore } from '@/stores/raceStore'
+import { storeToRefs } from 'pinia'
+import { computed, ref } from 'vue'
 
 interface Horse {
   id: number
@@ -54,9 +45,27 @@ interface Horse {
   condition: number
 }
 
-defineProps<{
+const props = defineProps<{
   horses: Horse[]
 }>()
+
+const store = useRaceStore()
+const { currentRace } = storeToRefs(store)
+
+const isHorseSelected = (horseId: number): boolean => {
+  return currentRace.value?.horses.some((horse) => horse.id === horseId) ?? false
+}
+
+const sortedHorses = computed(() => {
+  return [...props.horses].sort((a, b) => {
+    const aSelected = isHorseSelected(a.id)
+    const bSelected = isHorseSelected(b.id)
+
+    if (aSelected && !bSelected) return -1
+    if (!aSelected && bSelected) return 1
+    return 0
+  })
+})
 
 const scrollContainer = ref<HTMLElement | null>(null)
 const isDragging = ref(false)
@@ -83,12 +92,6 @@ const stopDrag = () => {
   if (!scrollContainer.value) return
   isDragging.value = false
   scrollContainer.value.style.cursor = 'grab'
-}
-
-const getConditionColor = (condition: number): string => {
-  if (condition >= 80) return '#4caf50'
-  if (condition >= 60) return '#ff9800'
-  return '#f44336'
 }
 </script>
 
@@ -152,84 +155,6 @@ const getConditionColor = (condition: number): string => {
   position: relative;
 }
 
-.horse-grid::after {
-  content: 'Scroll with mouse wheel';
-  position: absolute;
-  bottom: -25px;
-  right: 10px;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 0.8em;
-  font-style: italic;
-}
-
-.horse-item {
-  background: rgba(50, 50, 50, 0.8);
-  border-radius: 8px;
-  padding: 15px;
-  animation: slideIn 0.3s ease-out;
-  animation-fill-mode: both;
-  transition: transform 0.2s ease;
-}
-
-.horse-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.horse-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.horse-color {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.horse-name {
-  color: #fff;
-  font-weight: 500;
-  font-size: 1.1em;
-}
-
-.horse-condition {
-  margin-top: 10px;
-}
-
-.condition-label {
-  color: #aaa;
-  font-size: 0.9em;
-  margin-bottom: 5px;
-}
-
-.condition-bar {
-  height: 20px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  overflow: hidden;
-  position: relative;
-}
-
-.condition-fill {
-  height: 100%;
-  border-radius: 10px;
-  transition: width 0.5s ease;
-}
-
-.condition-value {
-  position: absolute;
-  right: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #fff;
-  font-size: 0.8em;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-}
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -241,24 +166,9 @@ const getConditionColor = (condition: number): string => {
   }
 }
 
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @media (max-width: 768px) {
   .horse-grid {
     grid-template-columns: 1fr;
-  }
-
-  .horse-item {
-    padding: 12px;
   }
 }
 
