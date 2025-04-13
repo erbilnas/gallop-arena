@@ -24,5 +24,8 @@ jobs:
       - name: Build
         run: bun run build
 
-      - name: Run e2e tests
+      - name: Run Unit tests
+        run: bun run test:unit
+
+      - name: Run E2E tests
         run: bun run test:e2e
