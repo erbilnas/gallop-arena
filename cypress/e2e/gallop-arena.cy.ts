@@ -219,34 +219,47 @@ describe('Gallop Arena', () => {
   })
 
   it('should display results modal after completing all race rounds', () => {
+    // Increase the test timeout since we're running through all 6 rounds
+    Cypress.config('defaultCommandTimeout', 60000)
+
     // Setup test
     cy.get('[data-test="header-button-generate-horses"]').click()
     cy.get('[data-test="header-button-generate-schedule"]').should('be.visible').click()
     cy.get('[data-test="header-button-start-race"]').click({ force: true })
 
+    // Wait for race to start and horses to be visible
+    cy.get('[data-test="race-horse"]', { timeout: 30000 }).should('be.visible')
+
+    // Check Round 1 is started
+    cy.contains('Round 1', { timeout: 30000 }).should('be.visible')
+
     // Enable auto next to go through all rounds automatically
     cy.get('[data-test="auto-next-checkbox"] input[type="checkbox"]').check({ force: true })
 
-    // Wait for first round to complete
-    cy.get('[data-test="header-button-next-round"]', { timeout: 300_000 }).should('not.be.disabled')
+    // Function to check for a specific round with retries
+    const waitForRound = (roundNumber: number) => {
+      cy.contains(`Round ${roundNumber}`, { timeout: 350000 })
+        .should('be.visible')
+        .then(() => {
+          cy.log(`Found Round ${roundNumber}`)
+        })
+    }
 
-    // Wait for Round 2 to start
-    cy.get('[data-test="round-badge"]', { timeout: 300_000 }).contains('Round 2')
+    // Wait for each round in sequence
+    waitForRound(2)
+    waitForRound(3)
+    waitForRound(4)
+    waitForRound(5)
+    waitForRound(6)
 
-    // Wait for Round 3 to start (showing progression)
-    cy.get('[data-test="round-badge"]', { timeout: 300_000 }).contains('Round 3')
-
-    // Wait for the final round to complete and results modal to appear
-    cy.get('[data-test="results-modal"]', { timeout: 300_000 }).should('be.visible')
+    // After all rounds, wait for the results modal
+    cy.get('[data-test="results-modal"]', { timeout: 350000 }).should('be.visible')
 
     // Verify results modal has expected content
     cy.get('[data-test="results-modal"]').contains('Race Results')
 
     // Check that the results table is displayed with horse positions
-    // Use scrollIntoView as its own command to ensure the table is visible
     cy.get('[data-test="results-modal"]').find('table').scrollIntoView()
-
-    // Then verify it's visible as a separate command
     cy.get('[data-test="results-modal"]').find('table').should('be.visible')
 
     // Verify table contents
