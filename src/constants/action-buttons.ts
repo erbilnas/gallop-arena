@@ -1,4 +1,4 @@
-export const BUTTON_CONFIG = {
+export const ACTION_BUTTONS = {
   GENERATE_HORSES: {
     id: 'generate-horses',
     text: 'Prepare Your Stable',
@@ -15,7 +15,7 @@ export const BUTTON_CONFIG = {
     icon: '🏁',
   },
   FINISH_RACE: {
-    id: 'start-race',
+    id: 'finish-race',
     text: 'Finish Race',
     icon: '🏁',
   },

@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import { DefaultLayout } from '@/layouts'
-import { useStore } from '@/stores'
+import { useRaceStore, useResultsStore, useUIStore } from '@/stores'
 import { ArenaView, FooterView, HeaderView, ResultsMenu, ResultsModal } from '@/views'
 import { storeToRefs } from 'pinia'
 import { computed, watch } from 'vue'
 
-const store = useStore()
-const { showResultsMenu, isLastRound, totalResults, isRoundComplete, showResultsModal } =
-  storeToRefs(store)
+const raceStore = useRaceStore()
+const resultsStore = useResultsStore()
+const uiStore = useUIStore()
+
+const { isLastRound, isRoundComplete } = storeToRefs(raceStore)
+const { totalResults } = storeToRefs(resultsStore)
+const { showResultsMenu, showResultsModal } = storeToRefs(uiStore)
 
 const isResultsModalVisible = computed<boolean>(
   () => isLastRound.value && totalResults.value.length > 0 && isRoundComplete.value,

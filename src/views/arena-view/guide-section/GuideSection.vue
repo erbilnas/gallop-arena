@@ -5,7 +5,7 @@ import GuideStep from './GuideStep.vue'
 </script>
 
 <template>
-  <div class="guide-section">
+  <div class="guide-section" data-test="guide-section">
     <div class="guide-section__content">
       <h2 class="guide-section__title">{{ GUIDE_CONTENT.title }}</h2>
       <p class="guide-section__subtitle">
@@ -44,7 +44,7 @@ import GuideStep from './GuideStep.vue'
   border-radius: var(--border-radius-md);
   padding: var(--spacing-xl);
   animation: fadeIn 0.5s ease-out;
-  width: 100vw;
+  width: 97vw;
   overflow-y: auto;
   position: relative;
   scrollbar-width: thin;

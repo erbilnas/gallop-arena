@@ -1,11 +1,16 @@
 <script setup lang="ts">
-import { useStore } from '@/stores'
+import { useRaceStore, useResultsStore, useUIStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import ResultsMenuContent from './ResultsMenuContent.vue'
 import ResultsMenuHeader from './ResultsMenuHeader.vue'
 
-const store = useStore()
-const { raceSchedule, totalResults, showResultsMenu } = storeToRefs(store)
+const raceStore = useRaceStore()
+const resultsStore = useResultsStore()
+const uiStore = useUIStore()
+
+const { raceSchedule } = storeToRefs(raceStore)
+const { totalResults } = storeToRefs(resultsStore)
+const { showResultsMenu } = storeToRefs(uiStore)
 </script>
 
 <template>
@@ -13,8 +18,9 @@ const { raceSchedule, totalResults, showResultsMenu } = storeToRefs(store)
     class="results-menu"
     :class="{ 'results-menu--open': showResultsMenu }"
     @click="showResultsMenu = false"
+    data-test="results-menu"
   >
-    <div class="results-menu__content" @click.stop>
+    <div class="results-menu__content" @click.stop data-test="results-menu-content">
       <ResultsMenuHeader @close="showResultsMenu = false" />
       <ResultsMenuContent :race-schedule="raceSchedule" :total-results="totalResults" />
     </div>

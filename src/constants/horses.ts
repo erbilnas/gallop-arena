@@ -48,3 +48,34 @@ export const FAMOUS_HORSE_NAMES = [
   'Kafkaslı',
   'Cihangir Harmony',
 ]
+
+// Horse colors for visualization
+export const HORSE_COLORS = [
+  'red',
+  'blue',
+  'green',
+  'yellow',
+  'purple',
+  'orange',
+  'pink',
+  'brown',
+  'cyan',
+  'magenta',
+  'lime',
+  'teal',
+  'indigo',
+  'violet',
+  'maroon',
+  'navy',
+  'olive',
+  'aqua',
+  'fuchsia',
+  'silver',
+] as const
+
+export const HORSE_CONFIG = {
+  TOTAL_HORSES: 20,
+  HORSES_PER_RACE: 10,
+  MIN_CONDITION: 1,
+  MAX_CONDITION: 100,
+} as const

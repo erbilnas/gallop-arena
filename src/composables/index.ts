@@ -1,3 +1,2 @@
-export * from './useRaceControls'
-export * from './useSound'
-export * from './useVersion'
+export * from './sound'
+export * from './version'

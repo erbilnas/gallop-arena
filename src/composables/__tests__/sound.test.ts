@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { useSound } from '../useSound'
+import { useSound } from '../sound'
 
 // Mock HTMLAudioElement
 vi.mock('vue', () => ({

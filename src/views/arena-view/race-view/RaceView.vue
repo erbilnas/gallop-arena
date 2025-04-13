@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useStore } from '@/stores'
+import { useRaceStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
 import RaceTitle from './RaceTitle.vue'
 import RaceTrack from './RaceTrack.vue'
 
-const store = useStore()
-const { currentRace, horsePositions } = storeToRefs(store)
+const raceStore = useRaceStore()
+const { currentRace, horsePositions } = storeToRefs(raceStore)
 
 const isHorseListVisible = ref<boolean>(false)
 

@@ -11,9 +11,14 @@ defineProps<Props>()
 </script>
 
 <template>
-  <div class="results-menu-content">
-    <div v-for="round in raceSchedule.rounds" :key="round.id" class="results-menu-content__round">
-      <h3 class="results-menu-content__round-title">
+  <div class="results-menu-content" data-test="results-menu-content">
+    <div
+      v-for="round in raceSchedule.rounds"
+      :key="round.id"
+      class="results-menu-content__round"
+      data-test="race-results"
+    >
+      <h3 class="results-menu-content__round-title" data-test="race-result">
         Round {{ round.id }} - {{ round.distance }}m
       </h3>
 

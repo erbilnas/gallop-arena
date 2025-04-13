@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useVersion } from '@/composables/useVersion'
+import { useVersion } from '@/composables'
 
 const { version } = useVersion()
 </script>
 
 <template>
-  <p class="text">
+  <p class="text" data-test="footer-text">
     © {{ new Date().getFullYear() }} Erbil Nas. All rights reserved. Version {{ version }}
   </p>
 </template>

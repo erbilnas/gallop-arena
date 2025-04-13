@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { BaseTooltip } from '@/components'
-import { useSound } from '@/composables'
 import { computed } from 'vue'
 
 interface Props {
@@ -12,7 +11,6 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-const { playSound } = useSound()
 
 // Generate a random number between 1 and 21 for the horse sprite
 const horseSprite = computed(() => {
@@ -26,17 +24,20 @@ const horseSprite = computed(() => {
     :style="{
       backgroundColor: props.color,
       left: `${props.position || 0}px`,
+      transform: `translateX(${props.position || 0}px)`,
     }"
-    @transitionstart="playSound('horse')"
+    data-test="race-horse"
   >
-    <div class="race-horse__content">
-      <img :src="horseSprite" :alt="props.name" class="race-horse__icon" />
+    <div class="race-horse__content" data-test="horse-animation">
+      <img :src="horseSprite" :alt="props.name" class="race-horse__icon" data-test="horse-sprite" />
     </div>
 
     <BaseTooltip
       :content="props.name"
       :secondary-content="`${props.speed} km/h`"
       secondary-icon="⚡"
+      data-test="horse-tooltip"
+      class="race-horse__tooltip"
     />
   </div>
 </template>
@@ -79,5 +80,9 @@ const horseSprite = computed(() => {
 
 .race-horse:hover :deep(.tooltip) {
   opacity: 1;
+}
+
+.race-horse__tooltip {
+  pointer-events: auto;
 }
 </style>

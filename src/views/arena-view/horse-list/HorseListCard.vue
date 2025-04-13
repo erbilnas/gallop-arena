@@ -24,10 +24,15 @@ const getConditionColor = (condition: number): string => {
     class="horse-card"
     :class="{ 'horse-card--selected': isSelected }"
     :style="{ '--delay': `${horse.id * 0.05}s` }"
+    data-test="horse-card"
   >
     <div class="horse-card__header">
-      <div class="horse-card__color" :style="{ backgroundColor: horse.color }"></div>
-      <div class="horse-card__name">{{ horse.name }}</div>
+      <div
+        class="horse-card__color"
+        :style="{ backgroundColor: horse.color }"
+        data-test="horse-color"
+      ></div>
+      <div class="horse-card__name" data-test="horse-name">{{ horse.name }}</div>
     </div>
     <div class="horse-card__condition">
       <div class="horse-card__condition-label">Condition</div>
@@ -38,8 +43,11 @@ const getConditionColor = (condition: number): string => {
             width: `${horse.condition}%`,
             background: getConditionColor(horse.condition),
           }"
+          data-test="horse-condition-bar"
         ></div>
-        <span class="horse-card__condition-value">{{ horse.condition }}</span>
+        <span class="horse-card__condition-value" data-test="horse-condition">{{
+          horse.condition
+        }}</span>
       </div>
     </div>
   </div>

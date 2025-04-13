@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useStore } from '@/stores'
+import { useHorseStore } from '@/stores'
 import type { RaceResult } from '@/types'
 import { storeToRefs } from 'pinia'
 
@@ -10,8 +10,8 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const store = useStore()
-const { horses } = storeToRefs(store)
+const horseStore = useHorseStore()
+const { horses } = storeToRefs(horseStore)
 
 const getHorseName = (horseId: number): string => {
   const horse = horses.value.find((h) => h.id === horseId)
@@ -28,7 +28,7 @@ const formatValue = (result: RaceResult): string => {
 </script>
 
 <template>
-  <div class="results-list">
+  <div class="results-list" data-test="results-list">
     <div
       v-for="result in results"
       :key="result.horseId"
@@ -39,6 +39,7 @@ const formatValue = (result: RaceResult): string => {
         'results-list__item--silver': result.position === 2,
         'results-list__item--bronze': result.position === 3,
       }"
+      data-test="results-item"
     >
       <div class="results-list__position">{{ result.position }}</div>
       <div class="results-list__name">{{ getHorseName(result.horseId) }}</div>

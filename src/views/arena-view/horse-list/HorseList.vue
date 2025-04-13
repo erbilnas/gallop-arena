@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ScrollContainer, ScrollHint } from '@/components'
-import { useStore } from '@/stores'
+import { useRaceStore } from '@/stores'
 import type { Horse } from '@/types'
 import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
@@ -11,8 +11,8 @@ const props = defineProps<{
   horses: Horse[]
 }>()
 
-const store = useStore()
-const { currentRace } = storeToRefs(store)
+const raceStore = useRaceStore()
+const { currentRace } = storeToRefs(raceStore)
 
 const isHorseSelected = (horseId: number): boolean => {
   return currentRace.value?.horses.some((horse) => horse.id === horseId) ?? false
@@ -33,16 +33,17 @@ const sortedHorses = computed(() => {
 </script>
 
 <template>
-  <div class="horse-list">
+  <div class="horse-list" data-test="horse-list-container">
     <ScrollContainer>
       <ScrollHint />
       <HorseListHeader :horse-count="horses.length" />
-      <div class="horse-list__grid">
+      <div class="horse-list__grid" data-test="horse-list-grid">
         <HorseListCard
           v-for="horse in sortedHorses"
           :key="horse.id"
           :horse="horse"
           :is-selected="isHorseSelected(horse.id)"
+          data-test="horse-item"
         />
         <ScrollHint />
       </div>

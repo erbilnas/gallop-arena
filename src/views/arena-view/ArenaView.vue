@@ -1,14 +1,18 @@
 <script setup lang="ts">
 import { useSound } from '@/composables'
-import { useStore } from '@/stores'
+import { useHorseStore, useRaceStore, useUIStore } from '@/stores'
 import { storeToRefs } from 'pinia'
-import { ref, watch } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 import GuideSection from './guide-section'
 import HorseList from './horse-list'
 import { RaceView } from './race-view'
 
-const store = useStore()
-const { horses, isRoundInProgress, currentRace } = storeToRefs(store)
+const horseStore = useHorseStore()
+const raceStore = useRaceStore()
+const uiStore = useUIStore()
+const { horses } = storeToRefs(horseStore)
+const { isRoundInProgress, currentRace, isRoundComplete } = storeToRefs(raceStore)
+const { isAutoNext } = storeToRefs(uiStore)
 
 const { playSound, stopSound } = useSound()
 
@@ -34,25 +38,58 @@ watch(isRoundInProgress, (inProgress: boolean) => {
   }
 })
 
-const toggleFullscreen = (): void => {
-  if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen()
-    isFullscreen.value = true
+// Watch for round completion and handle auto-next
+watch([isRoundComplete, isAutoNext], ([isComplete, autoNext]) => {
+  if (isComplete && autoNext && !raceStore.isLastRound) {
+    // Add a small delay before advancing to the next round
+    // This ensures the UI has time to update and Cypress can detect the changes
+    setTimeout(() => {
+      raceStore.handleNextRound()
+    }, 1000)
+  }
+})
+
+const toggleFullscreen = async (): Promise<void> => {
+  try {
+    if (!document.fullscreenElement) {
+      await document.documentElement.requestFullscreen()
+      isFullscreen.value = true
+    } else {
+      if (document.exitFullscreen) {
+        await document.exitFullscreen()
+        isFullscreen.value = false
+      }
+    }
+  } catch (err) {
+    console.error('Error attempting to toggle fullscreen:', err)
   }
 }
+
+// Add fullscreen change event listener
+onMounted(() => {
+  document.addEventListener('fullscreenchange', () => {
+    isFullscreen.value = Boolean(document.fullscreenElement)
+  })
+})
+
+onUnmounted(() => {
+  document.removeEventListener('fullscreenchange', () => {
+    isFullscreen.value = Boolean(document.fullscreenElement)
+  })
+})
 </script>
 
 <template>
-  <div class="arena">
+  <div class="arena" data-test="arena">
     <div class="arena__container">
       <template v-if="!horses.length">
         <GuideSection />
       </template>
 
       <template v-else>
-        <HorseList v-if="isHorseListVisible" :horses />
+        <HorseList v-if="isHorseListVisible" :horses data-test="horse-list" />
 
-        <div v-if="currentRace" class="arena__race">
+        <div v-if="currentRace" class="arena__race" data-test="race-view">
           <RaceView />
         </div>
       </template>

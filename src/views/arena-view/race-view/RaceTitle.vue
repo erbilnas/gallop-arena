@@ -1,11 +1,16 @@
 <script setup lang="ts">
-import { BaseAlert, BaseBadge } from '@/components/common'
+import { BaseAlert, BaseBadge, BaseCheckbox } from '@/components/common'
+import { useUIStore } from '@/stores'
+import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
 
 defineProps<{
   round: number
   distance: number
 }>()
+
+const uiStore = useUIStore()
+const { isAutoNext } = storeToRefs(uiStore)
 
 const isHorseListVisible = ref<boolean>(true)
 const isAlertVisible = ref<boolean>(true)
@@ -22,6 +27,7 @@ const handleAlertClose = (): void => {
 
 const emit = defineEmits<{
   (e: 'toggle-horse-list', value: boolean): void
+  (e: 'update:auto-next', value: boolean): void
 }>()
 
 defineExpose({
@@ -31,11 +37,20 @@ defineExpose({
 </script>
 
 <template>
-  <div class="race-title">
-    <h3 class="race-title__heading">
-      <BaseBadge size="small" success>Round {{ round }}</BaseBadge>
-      <BaseBadge size="small" info>{{ distance }}m</BaseBadge>
-    </h3>
+  <div class="race-title" data-test="race-title">
+    <div class="race-title__header" data-test="race-title-header">
+      <h3 class="race-title__heading" data-test="race-title-heading">
+        <BaseBadge size="small" success data-test="round-badge">Round {{ round }}</BaseBadge>
+        <BaseBadge size="small" info data-test="distance-badge">{{ distance }}m</BaseBadge>
+      </h3>
+
+      <BaseCheckbox
+        v-model="isAutoNext"
+        label="Auto Next Round"
+        data-test="auto-next-checkbox"
+        @update:modelValue="(value) => emit('update:auto-next', value)"
+      />
+    </div>
 
     <BaseAlert
       v-if="isAlertVisible"
@@ -44,6 +59,7 @@ defineExpose({
       size="small"
       class="race-title__alert"
       closable
+      data-test="stats-alert"
       @close="handleAlertClose"
     />
   </div>
@@ -53,6 +69,13 @@ defineExpose({
 .race-title {
   display: flex;
   flex-direction: column;
+}
+
+.race-title__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
 }
 
 .race-title__heading {

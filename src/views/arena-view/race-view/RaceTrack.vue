@@ -23,20 +23,21 @@ const horseSpeeds = computed(() => {
 </script>
 
 <template>
-  <div class="race-track">
+  <div class="race-track" data-test="race-track">
     <div class="race-track__background">
-      <div class="race-track__lane" v-for="horse in horses" :key="horse.id">
+      <div class="race-track__lane" v-for="horse in horses" :key="horse.id" data-test="race-lane">
         <RaceHorse
           :id="horse.id"
           :name="horse.name"
           :color="horse.color"
           :position="horsePositions[horse.id] || 0"
           :speed="horseSpeeds[horse.id]"
+          data-test="race-horse"
         />
       </div>
 
-      <div class="race-track__finish-line"></div>
-      <div class="race-track__finish-flag"></div>
+      <div class="race-track__finish-line" data-test="finish-line"></div>
+      <div class="race-track__finish-flag" data-test="finish-flag"></div>
     </div>
   </div>
 </template>

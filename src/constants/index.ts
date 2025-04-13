@@ -1,4 +1,5 @@
-export * from './buttons'
+export * from './action-buttons'
 export * from './guide-content'
 export * from './horses'
+export * from './point-system'
 export * from './race'
