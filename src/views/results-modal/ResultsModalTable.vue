@@ -36,6 +36,7 @@ const getHorseColor = (horseId: number): string => {
     :rows="processedResults"
     hoverable
     class="results-table"
+    data-test="results-table"
   >
     <template #default="{ row }">
       <td>{{ (row as ProcessedResult).position }}</td>
