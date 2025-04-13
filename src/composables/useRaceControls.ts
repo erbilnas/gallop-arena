@@ -100,7 +100,7 @@ const useRaceState = () => {
 const useRaceLogic = (raceState: ReturnType<typeof useRaceState>) => {
   const calculateHorseSpeed = (horse: (typeof raceState.currentRace.value.horses)[0]) => {
     const baseSpeed = (horse.condition / RACE_CONFIG.MAX_CONDITION) * 10
-    const randomFactor = 0.8 + Math.random() * 0.4
+    const randomFactor = 0.8 + Math.random() * 1.4
     return baseSpeed * randomFactor
   }
 

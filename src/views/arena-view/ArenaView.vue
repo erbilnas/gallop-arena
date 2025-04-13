@@ -10,7 +10,7 @@ import { RaceView } from './race-view'
 const store = useStore()
 const { horses, isRoundInProgress, currentRace } = storeToRefs(store)
 
-const { playHorseSound, stopHorseSound } = useSound()
+const { playSound, stopSound } = useSound()
 
 const isFullscreen = ref<boolean>(false)
 const isHorseListVisible = ref<boolean>(false)
@@ -25,12 +25,12 @@ watch(
 
 watch(isRoundInProgress, (inProgress: boolean) => {
   if (inProgress) {
-    playHorseSound()
+    playSound('horse', '/src/assets/sounds/horse-running.mp3', { loop: true })
     if (!document.fullscreenElement) {
       toggleFullscreen()
     }
   } else {
-    stopHorseSound()
+    stopSound('horse')
   }
 })
 

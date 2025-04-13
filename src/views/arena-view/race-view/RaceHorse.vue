@@ -12,7 +12,7 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-const { playHorseSound } = useSound()
+const { playSound } = useSound()
 
 // Generate a random number between 1 and 21 for the horse sprite
 const horseSprite = computed(() => {
@@ -27,7 +27,7 @@ const horseSprite = computed(() => {
       backgroundColor: props.color,
       left: `${props.position || 0}px`,
     }"
-    @transitionstart="playHorseSound"
+    @transitionstart="playSound('horse')"
   >
     <div class="race-horse__content">
       <img :src="horseSprite" :alt="props.name" class="race-horse__icon" />
