@@ -1,11 +1,9 @@
-<script setup lang="ts">
-// No props or logic needed for this simple component
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="scroll-hint">
     <span class="scroll-hint__icon">🖱️</span>
-    <span class="scroll-hint__text">Scroll or drag to see all horses</span>
+    <span>Scroll or drag to see all horses</span>
   </div>
 </template>
 
@@ -26,9 +24,5 @@
 
 .scroll-hint__icon {
   font-size: var(--font-size-md);
-}
-
-.scroll-hint__text {
-  /* Text styles are inherited from parent */
 }
 </style>

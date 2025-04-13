@@ -7,7 +7,7 @@
     "dev": "bun run --bun vite",
     "build": "bun run --bun run-p type-check \"build-only {@}\" --",
     "preview": "bun run --bun vite preview",
-    "test:unit": "bun run --bun vitest",
+    "test:unit": "bun run vitest",
     "test:e2e": "bun run --bun start-server-and-test preview http://localhost:4173 'cypress run --e2e'",
     "test:e2e:dev": "bun run --bun start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'",
     "build-only": "bun run --bun vite build",
@@ -25,16 +25,17 @@
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^9.0.2",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^8.0.7",
     "@semantic-release/npm": "^10.0.4",
-    "@semantic-release/commit-analyzer": "^9.0.2",
     "@semantic-release/release-notes-generator": "^10.0.3",
     "@tsconfig/node22": "^22.0.1",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^22.14.0",
     "@vitejs/plugin-vue": "^5.2.3",
     "@vitest/eslint-plugin": "^1.1.39",
+    "@vitest/ui": "3.1.1",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.5.0",
     "@vue/test-utils": "^2.4.6",
@@ -49,12 +50,12 @@
     "npm-run-all2": "^7.0.2",
     "oxlint": "^0.16.0",
     "prettier": "3.5.3",
+    "semantic-release": "^23.0.2",
     "start-server-and-test": "^2.0.11",
     "typescript": "~5.8.0",
     "vite": "^6.2.4",
     "vite-plugin-vue-devtools": "^7.7.2",
     "vitest": "^3.1.1",
-    "vue-tsc": "^2.2.8",
-    "semantic-release": "^23.0.2"
+    "vue-tsc": "^2.2.8"
   }
 }
