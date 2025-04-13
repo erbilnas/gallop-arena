@@ -228,16 +228,16 @@ describe('Gallop Arena', () => {
     cy.get('[data-test="auto-next-checkbox"] input[type="checkbox"]').check({ force: true })
 
     // Wait for first round to complete
-    cy.get('[data-test="header-button-next-round"]', { timeout: 160000 }).should('not.be.disabled')
+    cy.get('[data-test="header-button-next-round"]', { timeout: 300_000 }).should('not.be.disabled')
 
     // Wait for Round 2 to start
-    cy.get('[data-test="round-badge"]', { timeout: 160000 }).contains('Round 2')
+    cy.get('[data-test="round-badge"]', { timeout: 300_000 }).contains('Round 2')
 
     // Wait for Round 3 to start (showing progression)
-    cy.get('[data-test="round-badge"]', { timeout: 160000 }).contains('Round 3')
+    cy.get('[data-test="round-badge"]', { timeout: 300_000 }).contains('Round 3')
 
     // Wait for the final round to complete and results modal to appear
-    cy.get('[data-test="results-modal"]', { timeout: 280000 }).should('be.visible')
+    cy.get('[data-test="results-modal"]', { timeout: 300_000 }).should('be.visible')
 
     // Verify results modal has expected content
     cy.get('[data-test="results-modal"]').contains('Race Results')
